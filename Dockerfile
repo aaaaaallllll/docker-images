@@ -1,15 +1,15 @@
 # 使用官方Node镜像
-FROM node:22-alpine
+FROM node:22-alpine as builder
 
 # 设置工作目录
-WORKDIR app
+WORKDIR /app
 
 # 复制package文件并安装依赖
 #COPY package*.json ./
 #RUN npm install
 
 # 复制项目文件
-COPY . .
+COPY --from=builder /app/.output .
 
 # 暴露端口
 EXPOSE 3000
