@@ -25,11 +25,17 @@ const icon_diqubiaoxun = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2
 
 const icon_douyin = "" + __buildAssetsURL("douyin.FvlnG-Ad.svg");
 
+const app_douyin = "" + __buildAssetsURL("douyin.BK-2Km0M.png");
+
 const icon_shipinghao = "" + __buildAssetsURL("shipinghao.BLI0lqWC.svg");
+
+const app_shipinghao = "" + __buildAssetsURL("shipinghao.Cwyau0WR.png");
 
 const icon_jinritoutiao = "" + __buildAssetsURL("toutiao.D2Me-PZB.svg");
 
 const icon_xiaohongshu = "" + __buildAssetsURL("xiaohongshu.C0k5ueMe.svg");
+
+const app_xiaohongshu = "" + __buildAssetsURL("xiaohongshu.FnjENNNB.png");
 
 const DEFINE_HOME_TITLE = [
   {
@@ -39,30 +45,6 @@ const DEFINE_HOME_TITLE = [
   {
     title: "招投标",
     value: "10000"
-  },
-  {
-    title: "中标",
-    value: "10000"
-  }
-];
-const DEFINE_HOME_HOTS = [
-  {
-    title: "拟在建项目"
-  },
-  {
-    title: "原始项目"
-  },
-  {
-    title: "中标单位"
-  },
-  {
-    title: "地区标讯"
-  },
-  {
-    title: "最新招标信息"
-  },
-  {
-    title: "..."
   }
 ];
 const DEFINE_HOME_CAROUSEL = [
@@ -77,38 +59,45 @@ const DEFINE_HOME_NAV = [
   {
     title: "拟在建项目",
     remark: "精准全国拟建、在建项目库123123123xxx精准全国拟建、在建项目库",
-    icon: icon_nizaijianxiangmu
+    icon: icon_nizaijianxiangmu,
+    url: "/message/nzj"
   },
   {
     title: "过审项目",
     remark: "最新获批项目，直击源头",
-    icon: icon_guoshenxiangmu
+    icon: icon_guoshenxiangmu,
+    url: "/message/pf"
   },
   {
     title: "业主单位",
     remark: "业主单位  设计院  施工单位",
-    icon: icon_yezhudanwei
+    icon: icon_yezhudanwei,
+    url: "/company/company/1"
   },
   {
     title: "订阅查询",
     remark: "个性化精准订阅查询信息",
-    icon: icon_dingyuechaxun
+    icon: icon_dingyuechaxun,
+    url: "/subscrib/list"
   },
   {
     title: "招投标信息",
     remark: "每日更新全国招投标信息",
     icon: icon_zhaotoubiaoxinxi,
-    noBg: true
+    noBg: true,
+    url: "/message/ztb"
   },
   {
     title: "中标查询",
     remark: "实时中标信息及企业查询",
-    icon: icon_zhongbiaochaxun
+    icon: icon_zhongbiaochaxun,
+    url: "/message/zb"
   },
   {
     title: "项目核查",
     remark: "1v1人工核验项目信息",
-    icon: icon_xiangmuhecha
+    icon: icon_xiangmuhecha,
+    url: "/message/pf"
   },
   {
     title: "地区标讯",
@@ -120,19 +109,23 @@ const DEFINE_HOME_NAV = [
 const DEFINE_HOME_SOCIAL = [
   {
     title: "抖音",
-    icon: icon_douyin
+    icon: icon_douyin,
+    app_scan: app_douyin
   },
   {
     title: "视频号",
-    icon: icon_shipinghao
+    icon: icon_shipinghao,
+    app_scan: app_shipinghao
   },
   {
     title: "今日头条",
-    icon: icon_jinritoutiao
+    icon: icon_jinritoutiao,
+    app_scan: null
   },
   {
     title: "小红书",
-    icon: icon_xiaohongshu
+    icon: icon_xiaohongshu,
+    app_scan: app_xiaohongshu
   }
 ];
 
@@ -185,5 +178,5 @@ _sfc_main.setup = (props, ctx) => {
 };
 const __nuxt_component_3 = /* @__PURE__ */ Object.assign(_export_sfc(_sfc_main, [["__scopeId", "data-v-d987b8b2"]]), { __name: "TransitionMove" });
 
-export { DEFINE_HOME_TITLE as D, __nuxt_component_3 as _, DEFINE_HOME_HOTS as a, DEFINE_HOME_CAROUSEL as b, DEFINE_HOME_NAV as c, DEFINE_HOME_SOCIAL as d };
+export { DEFINE_HOME_TITLE as D, __nuxt_component_3 as _, DEFINE_HOME_CAROUSEL as a, DEFINE_HOME_NAV as b, DEFINE_HOME_SOCIAL as c };
 //# sourceMappingURL=move.vue.mjs.map

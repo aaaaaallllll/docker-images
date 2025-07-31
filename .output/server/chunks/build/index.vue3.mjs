@@ -1,5 +1,6 @@
-import { b as buildProps, i as iconPropType, _ as _export_sfc, u as useLocale, d as definePropType, g as ElIcon, w as withInstall, k as withNoopInstall, E as ElButton, j as arrow_right_default, s as search_default } from './index.mjs';
+import { u as useLocale, a as ElIcon, E as ElButton } from './index.mjs';
 import { defineComponent, ref, provide, createElementBlock, openBlock, unref, normalizeClass, renderSlot, getCurrentInstance, inject, createElementVNode, createBlock, withCtx, resolveDynamicComponent, toDisplayString, mergeProps, createTextVNode, createVNode, isRef, useSSRContext } from 'vue';
+import { b as buildProps, i as iconPropType, _ as _export_sfc, f as definePropType, w as withInstall, e as withNoopInstall, d as arrow_right_default, s as search_default } from './icon.mjs';
 import { a as useNamespace } from './server.mjs';
 import { _ as __nuxt_component_3, D as DEFINE_HOME_TITLE } from './move.vue.mjs';
 import { E as ElInput } from './index2.mjs';
@@ -25,6 +26,7 @@ import 'unhead/server';
 import 'unhead/utils';
 import 'devalue';
 import './_plugin-vue_export-helper.mjs';
+import './index3.mjs';
 
 const breadcrumbKey = Symbol("breadcrumbKey");
 

@@ -1444,6 +1444,11 @@ function normalizeSlot(slot, data) {
 
 const appName = "找甲方";
 const baseURL = "https://zjf.cppc360.com/api_nzj_nzjhot";
+const OUTSIDE_LINK = "http://pc.zjiaf.com/#";
+const JUMP_OUTSIDE_LINK = (url) => {
+  if (!url) return;
+  (void 0).open(`${OUTSIDE_LINK}${url}`);
+};
 
 const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   __name: "app",
@@ -1582,5 +1587,5 @@ const server = /*#__PURE__*/Object.freeze({
   default: entry$1
 });
 
-export { namespaceContextKey as A, zIndexContextKey as B, server as C, useNamespace as a, useId as b, useRouter as c, useRoute as d, useNuxtApp as e, useRuntimeConfig as f, nuxtLinkDefaults as g, isBoolean as h, isNumber as i, isClient as j, useGetDerivedNamespace as k, useIdInjection as l, isElement as m, navigateTo as n, useZIndex as o, baseURL as p, isString as q, resolveRouteObject as r, noop as s, tryOnScopeDispose as t, useHead as u, resolveUnref as v, tryOnMounted as w, identity as x, isStringNumber as y, isUndefined as z };
+export { identity as A, isStringNumber as B, server as C, JUMP_OUTSIDE_LINK as J, useNamespace as a, useId as b, useRouter as c, useRoute as d, useNuxtApp as e, useRuntimeConfig as f, nuxtLinkDefaults as g, isElement as h, isNumber as i, isBoolean as j, baseURL as k, isUndefined as l, namespaceContextKey as m, navigateTo as n, isClient as o, useGetDerivedNamespace as p, useIdInjection as q, resolveRouteObject as r, useZIndex as s, tryOnScopeDispose as t, useHead as u, isString as v, noop as w, resolveUnref as x, tryOnMounted as y, zIndexContextKey as z };
 //# sourceMappingURL=server.mjs.map
