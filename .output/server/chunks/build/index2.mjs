@@ -1,15 +1,22 @@
-import { computed, getCurrentInstance, shallowRef, ref, watch, nextTick, defineComponent, useAttrs as useAttrs$1, useSlots, toRef, createElementBlock, openBlock, normalizeStyle, normalizeClass, unref, createCommentVNode, Fragment, createElementVNode, renderSlot, createBlock, withCtx, resolveDynamicComponent, mergeProps, withModifiers, createVNode, toDisplayString } from 'vue';
-import { u as useAriaProps, a as useEventListener, b as useResizeObserver } from './index3.mjs';
+import { ref, nextTick, getCurrentInstance, shallowRef, watch, computed, defineComponent, useAttrs as useAttrs$1, useSlots, toRef, createElementBlock, openBlock, normalizeStyle, normalizeClass, unref, createCommentVNode, Fragment, createElementVNode, renderSlot, createBlock, withCtx, resolveDynamicComponent, mergeProps, withModifiers, createVNode, toDisplayString } from 'vue';
+import { u as useEventListener, a as useAriaProps, b as useResizeObserver } from './index3.mjs';
 import { fromPairs, isNil } from 'lodash-unified';
-import { c as useSizeProp, d as useFormSize, e as useFormDisabled, f as useFormItem, g as useFormItemInputId, a as ElIcon } from './index.mjs';
-import { b as buildProps, f as definePropType, i as iconPropType, _ as _export_sfc, V as ValidateComponentsMap, v as view_default, h as hide_default, j as circle_close_default, w as withInstall } from './icon.mjs';
-import { isString, isFunction, NOOP } from '@vue/shared';
+import { h as useSizeProp, b as useFormSize, k as useFormDisabled, d as useFormItem, e as useFormItemInputId, a as ElIcon } from './index.mjs';
+import { b as buildProps, f as definePropType, i as iconPropType, _ as _export_sfc, V as ValidateComponentsMap, v as view_default, o as hide_default, j as circle_close_default, w as withInstall } from './icon.mjs';
+import { isFunction, isString, NOOP } from '@vue/shared';
 import { a as useNamespace } from './server.mjs';
 
+class ElementPlusError extends Error {
+  constructor(m) {
+    super(m);
+    this.name = "ElementPlusError";
+  }
+}
+function throwError(scope, m) {
+  throw new ElementPlusError(`[${scope}] ${m}`);
+}
 function debugWarn(scope, message) {
 }
-
-const mutable = (val) => val;
 
 const isValidMobile = function(mobile) {
   return !!/^1[3|4|5|6|7|8|9]\d{9}$/.test(mobile);
@@ -47,8 +54,120 @@ const pick = function(obj, keys, split = ".") {
   }
   return res;
 };
+const Session = {
+  getSession: (key) => {
+    let user = (void 0).sessionStorage.getItem(key);
+    if (!user) {
+      return "";
+    }
+    try {
+      user = JSON.parse(user);
+    } catch (error) {
+      return "";
+    }
+    return user;
+  },
+  setSession: (key, value) => {
+    (void 0).sessionStorage.setItem(key, JSON.stringify(value));
+  },
+  removeSession: (key) => {
+    (void 0).sessionStorage.removeItem(key);
+  },
+  clearSession: () => {
+    (void 0).sessionStorage.clear();
+  }
+};
+
+const mutable = (val) => val;
+
+const isKorean = (text) => /([\uAC00-\uD7AF\u3130-\u318F])+/gi.test(text);
+
+function useComposition({
+  afterComposition,
+  emit
+}) {
+  const isComposing = ref(false);
+  const handleCompositionStart = (event) => {
+    emit == null ? void 0 : emit("compositionstart", event);
+    isComposing.value = true;
+  };
+  const handleCompositionUpdate = (event) => {
+    var _a;
+    emit == null ? void 0 : emit("compositionupdate", event);
+    const text = (_a = event.target) == null ? void 0 : _a.value;
+    const lastCharacter = text[text.length - 1] || "";
+    isComposing.value = !isKorean(lastCharacter);
+  };
+  const handleCompositionEnd = (event) => {
+    emit == null ? void 0 : emit("compositionend", event);
+    if (isComposing.value) {
+      isComposing.value = false;
+      nextTick(() => afterComposition(event));
+    }
+  };
+  const handleComposition = (event) => {
+    event.type === "compositionend" ? handleCompositionEnd(event) : handleCompositionUpdate(event);
+  };
+  return {
+    isComposing,
+    handleComposition,
+    handleCompositionStart,
+    handleCompositionUpdate,
+    handleCompositionEnd
+  };
+}
+
+function useFocusController(target, {
+  beforeFocus,
+  afterFocus,
+  beforeBlur,
+  afterBlur
+} = {}) {
+  const instance = getCurrentInstance();
+  const { emit } = instance;
+  const wrapperRef = shallowRef();
+  const isFocused = ref(false);
+  const handleFocus = (event) => {
+    const cancelFocus = isFunction(beforeFocus) ? beforeFocus(event) : false;
+    if (cancelFocus || isFocused.value)
+      return;
+    isFocused.value = true;
+    emit("focus", event);
+    afterFocus == null ? void 0 : afterFocus();
+  };
+  const handleBlur = (event) => {
+    var _a;
+    const cancelBlur = isFunction(beforeBlur) ? beforeBlur(event) : false;
+    if (cancelBlur || event.relatedTarget && ((_a = wrapperRef.value) == null ? void 0 : _a.contains(event.relatedTarget)))
+      return;
+    isFocused.value = false;
+    emit("blur", event);
+    afterBlur == null ? void 0 : afterBlur();
+  };
+  const handleClick = () => {
+    var _a, _b;
+    if (((_a = wrapperRef.value) == null ? void 0 : _a.contains((void 0).activeElement)) && wrapperRef.value !== (void 0).activeElement)
+      return;
+    (_b = target.value) == null ? void 0 : _b.focus();
+  };
+  watch(wrapperRef, (el) => {
+    if (el) {
+      el.setAttribute("tabindex", "-1");
+    }
+  });
+  useEventListener(wrapperRef, "focus", handleFocus, true);
+  useEventListener(wrapperRef, "blur", handleBlur, true);
+  useEventListener(wrapperRef, "click", handleClick, true);
+  return {
+    isFocused,
+    wrapperRef,
+    handleFocus,
+    handleBlur
+  };
+}
 
 const UPDATE_MODEL_EVENT = "update:modelValue";
+const CHANGE_EVENT = "change";
 
 const inputProps = buildProps({
   id: {
@@ -163,92 +282,6 @@ const useAttrs = (params = {}) => {
     return fromPairs(Object.entries((_a = instance.proxy) == null ? void 0 : _a.$attrs).filter(([key]) => !allExcludeKeys.value.includes(key) && !(excludeListeners && LISTENER_PREFIX.test(key))));
   });
 };
-
-function useFocusController(target, {
-  beforeFocus,
-  afterFocus,
-  beforeBlur,
-  afterBlur
-} = {}) {
-  const instance = getCurrentInstance();
-  const { emit } = instance;
-  const wrapperRef = shallowRef();
-  const isFocused = ref(false);
-  const handleFocus = (event) => {
-    const cancelFocus = isFunction(beforeFocus) ? beforeFocus(event) : false;
-    if (cancelFocus || isFocused.value)
-      return;
-    isFocused.value = true;
-    emit("focus", event);
-    afterFocus == null ? void 0 : afterFocus();
-  };
-  const handleBlur = (event) => {
-    var _a;
-    const cancelBlur = isFunction(beforeBlur) ? beforeBlur(event) : false;
-    if (cancelBlur || event.relatedTarget && ((_a = wrapperRef.value) == null ? void 0 : _a.contains(event.relatedTarget)))
-      return;
-    isFocused.value = false;
-    emit("blur", event);
-    afterBlur == null ? void 0 : afterBlur();
-  };
-  const handleClick = () => {
-    var _a, _b;
-    if (((_a = wrapperRef.value) == null ? void 0 : _a.contains((void 0).activeElement)) && wrapperRef.value !== (void 0).activeElement)
-      return;
-    (_b = target.value) == null ? void 0 : _b.focus();
-  };
-  watch(wrapperRef, (el) => {
-    if (el) {
-      el.setAttribute("tabindex", "-1");
-    }
-  });
-  useEventListener(wrapperRef, "focus", handleFocus, true);
-  useEventListener(wrapperRef, "blur", handleBlur, true);
-  useEventListener(wrapperRef, "click", handleClick, true);
-  return {
-    isFocused,
-    wrapperRef,
-    handleFocus,
-    handleBlur
-  };
-}
-
-const isKorean = (text) => /([\uAC00-\uD7AF\u3130-\u318F])+/gi.test(text);
-
-function useComposition({
-  afterComposition,
-  emit
-}) {
-  const isComposing = ref(false);
-  const handleCompositionStart = (event) => {
-    emit == null ? void 0 : emit("compositionstart", event);
-    isComposing.value = true;
-  };
-  const handleCompositionUpdate = (event) => {
-    var _a;
-    emit == null ? void 0 : emit("compositionupdate", event);
-    const text = (_a = event.target) == null ? void 0 : _a.value;
-    const lastCharacter = text[text.length - 1] || "";
-    isComposing.value = !isKorean(lastCharacter);
-  };
-  const handleCompositionEnd = (event) => {
-    emit == null ? void 0 : emit("compositionend", event);
-    if (isComposing.value) {
-      isComposing.value = false;
-      nextTick(() => afterComposition(event));
-    }
-  };
-  const handleComposition = (event) => {
-    event.type === "compositionend" ? handleCompositionEnd(event) : handleCompositionUpdate(event);
-  };
-  return {
-    isComposing,
-    handleComposition,
-    handleCompositionStart,
-    handleCompositionUpdate,
-    handleCompositionEnd
-  };
-}
 
 function useCursor(input) {
   let selectionInfo;
@@ -687,5 +720,5 @@ var Input = /* @__PURE__ */ _export_sfc(_sfc_main, [["__file", "input.vue"]]);
 
 const ElInput = withInstall(Input);
 
-export { ElInput as E, isValidMobile as i, mutable as m, pick as p };
+export { CHANGE_EVENT as C, ElInput as E, Session as S, UPDATE_MODEL_EVENT as U, useFocusController as a, clone as c, debugWarn as d, isValidMobile as i, mutable as m, pick as p, throwError as t, useComposition as u };
 //# sourceMappingURL=index2.mjs.map

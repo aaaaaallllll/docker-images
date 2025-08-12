@@ -1,8 +1,8 @@
 import { defineComponent, ref, computed, provide, renderSlot, unref, getCurrentInstance, watch, inject, withDirectives, cloneVNode, Fragment, Text, Comment, createVNode, createBlock, createCommentVNode, openBlock, mergeProps, withCtx, toRef, normalizeClass, Teleport as Teleport$1, shallowRef, createElementBlock, Transition, vShow, normalizeStyle, readonly, toDisplayString, createTextVNode } from 'vue';
-import { b as buildProps, _ as _export_sfc, w as withInstall, f as definePropType, k as buildProp, m as formItemContextKey, i as iconPropType, a as addUnit, o as withInstallDirective } from './icon.mjs';
-import { t as tryOnScopeDispose, i as isNumber, j as isBoolean, o as isClient, a as useNamespace, p as useGetDerivedNamespace, q as useIdInjection, h as isElement, s as useZIndex, b as useId } from './server.mjs';
+import { b as buildProps, _ as _export_sfc, w as withInstall, f as definePropType, p as buildProp, r as formItemContextKey, i as iconPropType, a as addUnit, u as withInstallDirective } from './icon.mjs';
+import { t as tryOnScopeDispose, i as isNumber, k as isBoolean, o as isClient, a as useNamespace, p as useGetDerivedNamespace, q as useIdInjection, j as isElement, s as useZIndex, b as useId } from './server.mjs';
 import { placements, createPopper } from '@popperjs/core';
-import { u as useAriaProps, o as onClickOutside } from './index3.mjs';
+import { a as useAriaProps, o as onClickOutside } from './index3.mjs';
 import { isFunction, isArray, NOOP, isObject } from '@vue/shared';
 import { isNil, fromPairs, isUndefined } from 'lodash-unified';
 
@@ -272,6 +272,7 @@ const EVENT_CODE = {
   enter: "Enter",
   space: "Space",
   down: "ArrowDown",
+  delete: "Delete",
   numpadEnter: "NumpadEnter"
 };
 
@@ -2017,5 +2018,5 @@ const ElPopover = withInstall(Popover, {
 
 const _imports_2 = "" + __buildAssetsURL("xiaocx.CGk7NYLe.png");
 
-export { ElPopover as E, _imports_2 as _, ElTooltip as a };
+export { ElPopover as E, _imports_2 as _, ElTooltip as a, EVENT_CODE as b, useTooltipContentProps as u };
 //# sourceMappingURL=xiaocx.png.mjs.map

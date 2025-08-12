@@ -1,3 +1,4 @@
+import { O as ORIGIN_OUTSIDE_LINK } from './server.mjs';
 import { defineComponent, ref, mergeProps, unref, useSSRContext } from 'vue';
 import { ssrRenderAttrs, ssrRenderList, ssrRenderClass, ssrRenderAttr, ssrInterpolate, ssrRenderStyle } from 'vue/server-renderer';
 import { p as pick } from './index2.mjs';
@@ -37,14 +38,32 @@ const icon_xiaohongshu = "" + __buildAssetsURL("xiaohongshu.C0k5ueMe.svg");
 
 const app_xiaohongshu = "" + __buildAssetsURL("xiaohongshu.FnjENNNB.png");
 
+const distrct_beijing = "" + __buildAssetsURL("beijing.COkSGere.png");
+
+const distrct_zhusanjiao = "" + __buildAssetsURL("zhusanjiao.DAaUqj1b.png");
+
+const distrct_changsanjiao = "" + __buildAssetsURL("changsanjiao.BN8UDc8E.png");
+
+const distrct_chengdu = "" + __buildAssetsURL("chengdu.SgASBVRB.png");
+
+const distrct_zhongbu = "" + __buildAssetsURL("zhongbu.P3eqv6_c.png");
+
+const distrct_dongbei = "" + __buildAssetsURL("dongbei.CNXaaQXR.png");
+
+const distrct_xibei = "" + __buildAssetsURL("xibei.DcVExB1k.png");
+
+const distrct_gangaotai = "" + __buildAssetsURL("gangaotai.DsbkFAB2.png");
+
 const DEFINE_HOME_TITLE = [
   {
     title: "拟在建",
-    value: "10000"
+    value: "",
+    key: "nzj"
   },
   {
     title: "招投标",
-    value: "10000"
+    value: "",
+    key: "ztb"
   }
 ];
 const DEFINE_HOME_CAROUSEL = [
@@ -97,13 +116,14 @@ const DEFINE_HOME_NAV = [
     title: "项目核查",
     remark: "1v1人工核验项目信息",
     icon: icon_xiangmuhecha,
-    url: "/message/pf"
+    url: ORIGIN_OUTSIDE_LINK + "cp_sever.html"
   },
   {
     title: "地区标讯",
     remark: "地区项目和招投标信息",
     icon: icon_diqubiaoxun,
-    noBg: true
+    noBg: true,
+    url: "/subscrib/list"
   }
 ];
 const DEFINE_HOME_SOCIAL = [
@@ -126,6 +146,40 @@ const DEFINE_HOME_SOCIAL = [
     title: "小红书",
     icon: icon_xiaohongshu,
     app_scan: app_xiaohongshu
+  }
+];
+const DEFINE_HOME_DISTRCT = [
+  {
+    title: "京津冀地区",
+    url: distrct_beijing
+  },
+  {
+    title: "珠三角地区",
+    url: distrct_zhusanjiao
+  },
+  {
+    title: "长三角地区",
+    url: distrct_changsanjiao
+  },
+  {
+    title: "成渝经济圈",
+    url: distrct_chengdu
+  },
+  {
+    title: "中部崛起",
+    url: distrct_zhongbu
+  },
+  {
+    title: "东北振兴",
+    url: distrct_dongbei
+  },
+  {
+    title: "西北生态区",
+    url: distrct_xibei
+  },
+  {
+    title: "港澳台地区",
+    url: distrct_gangaotai
   }
 ];
 
@@ -178,5 +232,5 @@ _sfc_main.setup = (props, ctx) => {
 };
 const __nuxt_component_3 = /* @__PURE__ */ Object.assign(_export_sfc(_sfc_main, [["__scopeId", "data-v-d987b8b2"]]), { __name: "TransitionMove" });
 
-export { DEFINE_HOME_TITLE as D, __nuxt_component_3 as _, DEFINE_HOME_CAROUSEL as a, DEFINE_HOME_NAV as b, DEFINE_HOME_SOCIAL as c };
+export { DEFINE_HOME_TITLE as D, __nuxt_component_3 as _, DEFINE_HOME_CAROUSEL as a, DEFINE_HOME_NAV as b, DEFINE_HOME_DISTRCT as c, DEFINE_HOME_SOCIAL as d };
 //# sourceMappingURL=move.vue.mjs.map

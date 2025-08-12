@@ -1,6 +1,6 @@
 import { inject, ref, computed, unref, isRef, defineComponent, createElementBlock, openBlock, mergeProps, renderSlot, watch, getCurrentInstance, provide, useSlots, Text, createBlock, resolveDynamicComponent, withCtx, createCommentVNode, Fragment, normalizeClass, reactive, toRef } from 'vue';
-import { b as buildProps, f as definePropType, _ as _export_sfc, a as addUnit, w as withInstall, k as buildProp, l as formContextKey, m as formItemContextKey, n as loading_default, i as iconPropType, e as withNoopInstall } from './icon.mjs';
-import { a as useNamespace, l as isUndefined, m as namespaceContextKey, z as zIndexContextKey } from './server.mjs';
+import { b as buildProps, f as definePropType, _ as _export_sfc, a as addUnit, w as withInstall, p as buildProp, q as formContextKey, r as formItemContextKey, t as loading_default, i as iconPropType, e as withNoopInstall } from './icon.mjs';
+import { a as useNamespace, h as isUndefined, m as namespaceContextKey, z as zIndexContextKey } from './server.mjs';
 import { get } from 'lodash-unified';
 import { isFunction } from '@vue/shared';
 import { TinyColor } from '@ctrl/tinycolor';
@@ -274,6 +274,8 @@ const useGlobalSize = () => {
 };
 
 const emptyValuesContextKey = Symbol("emptyValuesContextKey");
+const DEFAULT_EMPTY_VALUES = ["", void 0, null];
+const DEFAULT_VALUE_ON_CLEAR = void 0;
 const useEmptyValuesProps = buildProps({
   emptyValues: Array,
   valueOnClear: {
@@ -282,6 +284,31 @@ const useEmptyValuesProps = buildProps({
     validator: (val) => isFunction(val) ? !val() : !val
   }
 });
+const useEmptyValues = (props, defaultValue) => {
+  const config = getCurrentInstance() ? inject(emptyValuesContextKey, ref({})) : ref({});
+  const emptyValues = computed(() => props.emptyValues || config.value.emptyValues || DEFAULT_EMPTY_VALUES);
+  const valueOnClear = computed(() => {
+    if (isFunction(props.valueOnClear)) {
+      return props.valueOnClear();
+    } else if (props.valueOnClear !== void 0) {
+      return props.valueOnClear;
+    } else if (isFunction(config.value.valueOnClear)) {
+      return config.value.valueOnClear();
+    } else if (config.value.valueOnClear !== void 0) {
+      return config.value.valueOnClear;
+    }
+    return DEFAULT_VALUE_ON_CLEAR;
+  });
+  const isEmptyValue = (value) => {
+    return emptyValues.value.includes(value);
+  };
+  if (!emptyValues.value.includes(valueOnClear.value)) ;
+  return {
+    emptyValues,
+    valueOnClear,
+    isEmptyValue
+  };
+};
 
 const keysOf = (arr) => Object.keys(arr);
 
@@ -670,5 +697,5 @@ const ElButton = withInstall(Button, {
 });
 withNoopInstall(ButtonGroup);
 
-export { ElButton as E, ElIcon as a, useEmptyValuesProps as b, useSizeProp as c, useFormSize as d, useFormDisabled as e, useFormItem as f, useFormItemInputId as g, provideGlobalConfig as p, useLocale as u };
+export { ElButton as E, ElIcon as a, useFormSize as b, componentSizes as c, useFormItem as d, useFormItemInputId as e, useEmptyValues as f, useEmptyValuesProps as g, useSizeProp as h, useGlobalSize as i, useDeprecated as j, useFormDisabled as k, provideGlobalConfig as p, useLocale as u };
 //# sourceMappingURL=index.mjs.map

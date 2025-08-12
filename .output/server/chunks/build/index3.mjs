@@ -158,6 +158,48 @@ function useResizeObserver(target, callback, options = {}) {
     stop
   };
 }
+var __getOwnPropSymbols$8 = Object.getOwnPropertySymbols;
+var __hasOwnProp$8 = Object.prototype.hasOwnProperty;
+var __propIsEnum$8 = Object.prototype.propertyIsEnumerable;
+var __objRest$1 = (source, exclude) => {
+  var target = {};
+  for (var prop in source)
+    if (__hasOwnProp$8.call(source, prop) && exclude.indexOf(prop) < 0)
+      target[prop] = source[prop];
+  if (source != null && __getOwnPropSymbols$8)
+    for (var prop of __getOwnPropSymbols$8(source)) {
+      if (exclude.indexOf(prop) < 0 && __propIsEnum$8.call(source, prop))
+        target[prop] = source[prop];
+    }
+  return target;
+};
+function useMutationObserver(target, callback, options = {}) {
+  const _a = options, { window: window2 = defaultWindow } = _a, mutationOptions = __objRest$1(_a, ["window"]);
+  let observer;
+  const isSupported = useSupported(() => window2 && "MutationObserver" in window2);
+  const cleanup = () => {
+    if (observer) {
+      observer.disconnect();
+      observer = void 0;
+    }
+  };
+  const stopWatch = watch(() => unrefElement(target), (el) => {
+    cleanup();
+    if (isSupported.value && window2 && el) {
+      observer = new MutationObserver(callback);
+      observer.observe(el, mutationOptions);
+    }
+  }, { immediate: true });
+  const stop = () => {
+    cleanup();
+    stopWatch();
+  };
+  tryOnScopeDispose(stop);
+  return {
+    isSupported,
+    stop
+  };
+}
 var SwipeDirection;
 (function(SwipeDirection2) {
   SwipeDirection2["UP"] = "UP";
@@ -212,5 +254,5 @@ __spreadValues({
   linear: identity
 }, _TransitionPresets);
 
-export { useEventListener as a, useResizeObserver as b, onClickOutside as o, useAriaProps as u };
+export { useAriaProps as a, useResizeObserver as b, useMutationObserver as c, onClickOutside as o, useEventListener as u };
 //# sourceMappingURL=index3.mjs.map

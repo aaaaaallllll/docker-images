@@ -4,7 +4,7 @@ import { _ as _imports_1 } from './zhaojiafang.jpg.mjs';
 import { _ as _export_sfc } from './_plugin-vue_export-helper.mjs';
 import { E as ElInput, i as isValidMobile } from './index2.mjs';
 import { E as ElButton } from './index.mjs';
-import { m as myFetch, E as ElMessage } from './myFetch.mjs';
+import { E as ElMessage, a as pc_send_sms, p as pc_password_login, b as pc_api_login } from './login.mjs';
 import { c as useRouter } from './server.mjs';
 import './index3.mjs';
 import 'lodash-unified';
@@ -40,16 +40,6 @@ _sfc_main$2.setup = (props, ctx) => {
 };
 const __nuxt_component_0 = /* @__PURE__ */ Object.assign(_export_sfc(_sfc_main$2, [["ssrRender", _sfc_ssrRender]]), { __name: "LoginWexin" });
 
-const pc_password_login = async (params) => {
-  return await myFetch("/pc_password_login", params);
-};
-const pc_send_sms = async (params) => {
-  return await myFetch("/pc_send_sms", params);
-};
-const pc_api_login = async (params) => {
-  return await myFetch("/pc_api_login", params);
-};
-
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "phone",
   __ssrInlineRender: true,
@@ -66,7 +56,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
         if (!password.value) {
           return ElMessage.warning("请输入密码！");
         }
-        const res = await pc_password_login({
+        const [res] = await pc_password_login({
           mobile: mobile.value,
           password: password.value
         });
@@ -75,7 +65,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
         if (!code.value) {
           return ElMessage.warning("请输入验证码！");
         }
-        const res = await pc_api_login({
+        const [res] = await pc_api_login({
           mobile: mobile.value,
           code: code.value
         });
@@ -86,7 +76,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
       if (!isValidMobile(mobile.value)) {
         return ElMessage.warning("请输入正确的手机号！");
       }
-      const res = await pc_send_sms({
+      const [res] = await pc_send_sms({
         mobile: mobile.value
       });
       console.log(res);
