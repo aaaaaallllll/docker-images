@@ -4,7 +4,7 @@ import { defineComponent, ref, unref, withCtx, createVNode, createTextVNode, use
 import { ssrRenderAttr, ssrInterpolate, ssrRenderList, ssrRenderComponent, ssrRenderAttrs, ssrRenderClass } from 'vue/server-renderer';
 import { _ as _imports_0$5 } from './logo.png.mjs';
 import { _ as _imports_1$2 } from './zhaojiafang.jpg.mjs';
-import { T as TestBaseURL, c as useRouter, J as JUMP_OUTSIDE_LINK, i as isNumber, a as useNamespace, b as useId, h as isUndefined, j as isElement } from './server.mjs';
+import { T as TestBaseURL, c as useRouter, J as JUMP_OUTSIDE_LINK, i as isNumber, a as useNamespace, b as useId, h as isUndefined, j as isElement, O as ORIGIN_OUTSIDE_LINK } from './server.mjs';
 import dayjs from 'dayjs';
 import { c as clone, t as throwError, u as useComposition, a as useFocusController, d as debugWarn, U as UPDATE_MODEL_EVENT, C as CHANGE_EVENT, m as mutable, E as ElInput, S as Session } from './index2.mjs';
 import { D as DEFINE_HOME_TITLE, a as DEFINE_HOME_CAROUSEL, b as DEFINE_HOME_NAV, _ as __nuxt_component_3$1, c as DEFINE_HOME_DISTRCT, d as DEFINE_HOME_SOCIAL } from './move.vue.mjs';
@@ -3858,34 +3858,27 @@ const PaginationSizeOption2 = [20];
 
 function usePagination(cb, sizeOption = PaginationSizeOption1) {
   const pagination = reactive({
-    page: 0,
-    current: 1,
+    page: 1,
     total: 0,
     sizeOption,
     size: sizeOption[0]
   });
   const onPageChange = (page) => {
-    pagination.current = page;
-    setPage();
+    pagination.page = page;
     return cb();
   };
   const onSizeChange = (size) => {
-    pagination.current = 1;
+    pagination.page = 1;
     pagination.size = size;
-    setPage();
     return cb();
   };
   const setTotal = (total) => {
     pagination.total = total;
   };
   const reset = () => {
-    pagination.current = 1;
+    pagination.page = 1;
     pagination.total = 0;
     pagination.size = pagination.sizeOption[0];
-    setPage();
-  };
-  const setPage = () => {
-    pagination.page = pagination.current - 1;
   };
   return [
     pagination,
@@ -3935,7 +3928,18 @@ const _sfc_main$a = /* @__PURE__ */ defineComponent({
       }, null, _parent));
       _push(`<p class="ml-[35px] font-size-[12px]"> 更新于${ssrInterpolate(unref(dataFliter)(/* @__PURE__ */ new Date(), "MM/DD : hh:mm"))}</p></aside><a class="color-[#666] h-1">查看全部</a></header><section class="h-[720px]"><ul class="h-[680px] overflow-y-auto"><!--[-->`);
       ssrRenderList(unref(newsList), (news, i) => {
-        _push(`<li class="w-full font-size-[12px] mt-[10px] color-[#333]"><header class="font-size-[14px]">${ssrInterpolate(news.title)}</header><nav class="flex-between-center color-[#666]"><aside class="flex-start-center gap-[10px] mt-[8px]"><button class="bg-[#A252FF] rounded-[2px] color-[#fff] pr-[6px] pl-[6px] pt-[2px] pb-[2px]"> 项目进展：${ssrInterpolate(news.jzjt)}</button><button class="bg-[#EAF3FF] rounded-[2px] pr-[6px] pl-[6px] pt-[2px] pb-[2px]"> 环保/市政/工业生产建筑 </button><button class="bg-[#EAF3FF] rounded-[2px] pr-[6px] pl-[6px] pt-[2px] pb-[2px]"> 垃圾处理/厂房 </button></aside><aside class="flex-start-center gap-[16px]"><p>${ssrInterpolate(news.province)}-${ssrInterpolate(news.city)}</p><p>${ssrInterpolate(unref(dataFliter)(news.posttime, "YYYY.MM.DD"))}</p></aside></nav><p class="color-[#666] mt-[10px]">${ssrInterpolate(news.content_red)} <span class="color-[#FF6A36] ml-[10px]"> 查与我相关 + </span></p><footer class="flex-between-center"><p class="color-[#666] mt-[10px]"> 业主联系人 / 项目预算 <button class="bg-[#FFA761] rounded-[2px] color-[#fff] pr-[6px] pl-[6px] pt-[2px] pb-[2px] ml-[10px]"> 已人工核实 | 查联系方式 </button></p><a class="color-[#128BED] h-1">项目详情</a></footer>`);
+        _push(`<li class="w-full font-size-[12px] mt-[10px] color-[#333]"><header class="font-size-[14px]">${ssrInterpolate(news.title)}</header><nav class="flex-between-center color-[#666]"><aside class="flex-start-center gap-[10px] mt-[8px]"><button class="bg-[#A252FF] rounded-[2px] color-[#fff] pr-[6px] pl-[6px] pt-[2px] pb-[2px]"> 项目进展：${ssrInterpolate(news.stage)}</button>`);
+        if (news.insustry) {
+          _push(`<button class="bg-[#EAF3FF] rounded-[2px] pr-[6px] pl-[6px] pt-[2px] pb-[2px]">${ssrInterpolate(news.insustry)}</button>`);
+        } else {
+          _push(`<!---->`);
+        }
+        if (news.lylx) {
+          _push(`<button class="bg-[#EAF3FF] rounded-[2px] pr-[6px] pl-[6px] pt-[2px] pb-[2px]">${ssrInterpolate(news.lylx)}</button>`);
+        } else {
+          _push(`<!---->`);
+        }
+        _push(`</aside><aside class="flex-start-center gap-[16px]"><p>${ssrInterpolate(news.province)}-${ssrInterpolate(news.city)}</p><p>${ssrInterpolate(unref(dataFliter)(news.posttime, "YYYY.MM.DD"))}</p></aside></nav><p class="color-[#666] mt-[10px]">${ssrInterpolate(news.content_red)} <span class="color-[#FF6A36] ml-[10px]"> 查与我相关 + </span></p><footer class="flex-between-center"><p class="color-[#666] mt-[10px]"> 业主联系人 / 项目预算 <button class="bg-[#FFA761] rounded-[2px] color-[#fff] pr-[6px] pl-[6px] pt-[2px] pb-[2px] ml-[10px]"> 已人工核实 | 查联系方式 </button></p><a class="color-[#128BED] h-1">项目详情</a></footer>`);
         if (i !== unref(newsList).length - 1) {
           _push(`<div class="h-[1px] mt-[15px] w-full bg-[#f3f3f3]"></div>`);
         } else {
@@ -4036,7 +4040,7 @@ const _sfc_main$8 = {
     getIndustryList();
     return (_ctx, _push, _parent, _attrs) => {
       const _component_el_popover = ElPopover;
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "bg-[#fff] rounded-[5px] p-[15px] color-[#333] font-size-[16px]" }, _attrs))}><header class="flex-between-center"><strong>找甲方 专业项目数据服务</strong></header><ul class="flex-between-center gap-[25px] mt-[30px]"><li class="w-[50%] c-p"><p class="mb-[15px]">项目反查</p><img class="w-full h-[220px]"${ssrRenderAttr("src", _imports_0$3)} alt="项目反查"></li><li class="h-[253px] w-[1px] bg-[#F3F3F3]"></li><li class="w-[50%]"><p class="mb-[15px]">行业研究</p><ul class="flex-column-between-start h-[220px] overflow-x-hidden overflow-y-auto gap-[20px]"><!--[-->`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "bg-[#fff] rounded-[5px] p-[15px] color-[#333] font-size-[16px]" }, _attrs))}><header class="flex-between-center"><strong>找甲方 专业项目数据服务</strong></header><ul class="flex-between-center gap-[25px] mt-[30px]"><li class="w-[50%] c-p"><a class="color-[#333]" rel="external"${ssrRenderAttr("href", unref(ORIGIN_OUTSIDE_LINK) + "cp_sever.html")} target="_blank"><p>项目反查</p><img class="w-full h-[220px] mt-[15px]"${ssrRenderAttr("src", _imports_0$3)} alt="项目反查"></a></li><li class="h-[253px] w-[1px] bg-[#F3F3F3]"></li><li class="w-[50%]"><p class="mb-[15px]">行业研究</p><ul class="flex-column-between-start h-[220px] overflow-x-hidden overflow-y-auto gap-[20px]"><!--[-->`);
       ssrRenderList(unref(industryItems), (item) => {
         _push(`<li class="flex-between-center gap-[10px] w-full"><img class="w-[125px] h-[60px]"${ssrRenderAttr("src", _imports_0$3)} alt="项目反差"><div class="flex-column-start flex-1"><p class="font-size-[14px]">${ssrInterpolate(item.title)}</p><footer class="w-full font-size-[12px] flex-between-center"><p class="color-[#666]">${ssrInterpolate(unref(dataFliter)(item.created_at, "YYYY.MM.DD hh.mm"))}</p>`);
         _push(ssrRenderComponent(_component_el_popover, {
@@ -4371,11 +4375,13 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
   __ssrInlineRender: true,
   setup(__props) {
+    const isLogin = ref(false);
     const getLoginToken = async () => {
       const [pc_login] = await pc_password_login({
         mobile: "13003638608",
         password: "zjiaf123"
       });
+      isLogin.value = true;
       Session.setSession("token", pc_login.token);
     };
     getLoginToken();
@@ -4397,7 +4403,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       _push(`<main class="mt-[-38px] pb-[38px] flex-column-center"><section class="w-default">`);
       _push(ssrRenderComponent(_component_home_nav, null, null, _parent));
       _push(`<ul class="w-full flex-between-start mt-[10px] gap-[10px]"><li class="w-[752px]">`);
-      _push(ssrRenderComponent(_component_home_news1, null, null, _parent));
+      if (unref(isLogin)) {
+        _push(ssrRenderComponent(_component_home_news1, null, null, _parent));
+      } else {
+        _push(`<!---->`);
+      }
       _push(ssrRenderComponent(_component_home_news2, { class: "mt-[10px]" }, null, _parent));
       _push(ssrRenderComponent(_component_home_industry_research, { class: "mt-[10px]" }, null, _parent));
       _push(ssrRenderComponent(_component_home_regional_project, { class: "mt-[10px]" }, null, _parent));
@@ -4405,7 +4415,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       _push(ssrRenderComponent(_component_home_subs, null, null, _parent));
       _push(ssrRenderComponent(_component_home_helper, { class: "mt-[10px]" }, null, _parent));
       _push(ssrRenderComponent(_component_home_social_media, { class: "mt-[10px]" }, null, _parent));
-      _push(ssrRenderComponent(_component_home_firm_lib, { class: "mt-[10px]" }, null, _parent));
+      if (unref(isLogin)) {
+        _push(ssrRenderComponent(_component_home_firm_lib, { class: "mt-[10px]" }, null, _parent));
+      } else {
+        _push(`<!---->`);
+      }
       _push(ssrRenderComponent(_component_home_supply_keywords, { class: "mt-[10px]" }, null, _parent));
       _push(ssrRenderComponent(_component_home_free_use, { class: "mt-[10px]" }, null, _parent));
       _push(`</li></ul></section></main></div>`);

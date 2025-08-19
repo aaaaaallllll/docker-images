@@ -71,7 +71,7 @@ function createHead(options = {}) {
   return head;
 }
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"找甲方专业提供:国内外、各行业拟建和在建工程信息及相关招投标信息,专注对接供需双方,监测工程参与方之间的相互业务关联"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"title":"找甲方"};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"找甲方专业提供:国内外、各行业拟建和在建工程信息及相关招投标信息,专注对接供需双方,监测工程参与方之间的相互业务关联。"},{"name":"keywords","content":"找甲方"},{"name":"theme-color","content":"#ffffff"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"},{"rel":"canonical","href":"https://www.xxx.com/"}],"style":[],"script":[],"noscript":[],"title":"找甲方"};
 
 const appRootTag = "div";
 

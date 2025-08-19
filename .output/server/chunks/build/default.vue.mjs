@@ -1,11 +1,15 @@
 import { E as ElPopover, _ as _imports_2 } from './xiaocx.png.mjs';
-import { defineComponent, mergeProps, withCtx, createVNode, useSSRContext } from 'vue';
+import { defineComponent, mergeProps, unref, withCtx, createVNode, useSSRContext } from 'vue';
 import { ssrRenderAttrs, ssrRenderAttr, ssrRenderComponent, ssrRenderSlot } from 'vue/server-renderer';
 import { _ as _imports_0 } from './logo.png.mjs';
 import { _ as _imports_1 } from './zhaojiafang.jpg.mjs';
+import { O as ORIGIN_OUTSIDE_LINK } from './server.mjs';
 import { _ as _export_sfc } from './_plugin-vue_export-helper.mjs';
 import './icon.mjs';
-import './server.mjs';
+import '@vue/shared';
+import 'lodash-unified';
+import '@popperjs/core';
+import './index3.mjs';
 import '../_/nitro.mjs';
 import 'node:http';
 import 'node:https';
@@ -22,10 +26,6 @@ import 'vue-bundle-renderer/runtime';
 import 'unhead/server';
 import 'unhead/utils';
 import 'devalue';
-import '@vue/shared';
-import 'lodash-unified';
-import '@popperjs/core';
-import './index3.mjs';
 
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "index",
@@ -33,7 +33,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_el_popover = ElPopover;
-      _push(`<footer${ssrRenderAttrs(mergeProps({ class: "main-bg h-[281px] flex-column-center color-[#fff]" }, _attrs))}><nav class="w-default"><div class="flex-between-center"><aside class="flex-column-start-start"><img class="w-[88px] h-[88px]"${ssrRenderAttr("src", _imports_0)} alt="找甲方logo图"><label class="color-[#fff]">北京找甲方科技有限公司</label><div class="mt-[20px] mb-[10px] opacity-0">xxxx</div></aside><article class="flex-start-center gap-[50px]"><ul class="flex-column-start font-size-[12px] w-[80px] gap-[18px]"><li class="font-bold font-size-[16px]">资源中心</li><li class="h-1"> 产品说明 </li><li>新闻快讯</li><li>行业研究</li></ul><ul class="flex-column-start font-size-[12px] w-[80px] gap-[18px]"><li class="font-bold font-size-[16px]">产品下载</li>`);
+      _push(`<footer${ssrRenderAttrs(mergeProps({ class: "main-bg h-[281px] flex-column-center color-[#fff]" }, _attrs))}><nav class="w-default"><div class="flex-between-center"><aside class="flex-column-start-start"><img class="w-[88px] h-[88px]"${ssrRenderAttr("src", _imports_0)} alt="找甲方logo图"><label class="color-[#fff]">北京找甲方科技有限公司</label><div class="mt-[20px] mb-[10px] opacity-0">xxxx</div></aside><article class="flex-start-center gap-[50px]"><ul class="flex-column-start font-size-[12px] w-[80px] gap-[18px]"><li class="font-bold font-size-[16px]">资源中心</li><li class="h-1"><a class="color-[#fff]" rel="external"${ssrRenderAttr("href", unref(ORIGIN_OUTSIDE_LINK) + "cp_sever.html")} target="_blank">产品说明</a></li><li>新闻快讯</li><li>行业研究</li></ul><ul class="flex-column-start font-size-[12px] w-[80px] gap-[18px]"><li class="font-bold font-size-[16px]">产品下载</li>`);
       _push(ssrRenderComponent(_component_el_popover, {
         placement: "bottom",
         trigger: "hover"
@@ -96,7 +96,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
         }),
         _: 1
       }, _parent));
-      _push(`<li class="h-1">PC工作台</li></ul><ul class="flex-column-start font-size-[12px] w-[80px] gap-[18px]"><li class="font-bold font-size-[16px]">关于我们</li><li class="h-1"> 公司简介 </li><li>免责声明</li><li>友情链接</li></ul></article></div><p class="w-full flex-start-center mt-[4px] ml-[26px]">友情链接</p><div class="flex-start-center w-[705px] h-[1px] bg-[#fff] mt-[15px]"></div><main class="flex-start-center gap-[20px] ml-[35px] mt-[18px]"><label>Ⓒ2014-2025 北京找甲方科技有限公司</label><label>增值电信业务经营许可证：</label><label>京ICP备15042523号</label><label>企业征信备案号</label></main></nav></footer>`);
+      _push(`<li class="h-1">PC工作台</li></ul><ul class="flex-column-start font-size-[12px] w-[80px] gap-[18px]"><li class="font-bold font-size-[16px]">关于我们</li><li class="h-1"><a class="color-[#fff]" rel="external"${ssrRenderAttr("href", unref(ORIGIN_OUTSIDE_LINK) + "about.html")} target="_blank">公司简介</a></li><li>免责声明</li><li>友情链接</li></ul></article></div><p class="w-full flex-start-center mt-[4px] ml-[26px]">友情链接</p><div class="flex-start-center w-[705px] h-[1px] bg-[#fff] mt-[15px]"></div><main class="flex-start-center gap-[20px] ml-[35px] mt-[18px]"><label>Ⓒ2014-2025 北京找甲方科技有限公司</label><label>增值电信业务经营许可证：</label><label>京ICP备15042523号</label><label>企业征信备案号</label></main></nav></footer>`);
     };
   }
 });
