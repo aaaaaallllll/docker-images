@@ -1,8 +1,8 @@
 import { shallowReactive, defineComponent, watch, renderSlot, isVNode, getCurrentWatcher, onWatcherCleanup } from 'vue';
-import { h as isElement, j as isBoolean, i as isNumber, k as baseURL } from './server.mjs';
-import { b as buildProps, f as definePropType, i as iconPropType, g as withInstallFunction } from './icon.mjs';
-import { m as mutable } from './index2.mjs';
-import { b as useEmptyValuesProps, c as useSizeProp, p as provideGlobalConfig } from './index.mjs';
+import { j as isElement, k as isBoolean, i as isNumber, l as baseURL } from './server.mjs';
+import { m as mutable, S as Session } from './index2.mjs';
+import { b as buildProps, f as definePropType, i as iconPropType, n as withInstallFunction } from './icon.mjs';
+import { g as useEmptyValuesProps, h as useSizeProp, p as provideGlobalConfig } from './index.mjs';
 import { isString, isFunction } from '@vue/shared';
 
 const messageTypes = ["success", "info", "warning", "error"];
@@ -198,9 +198,11 @@ function myFetch(url, params, options) {
         controller.abort();
       });
     }
-    const res = await fetch(baseURL + url, {
+    const token = Session.getSession("token");
+    const reqUrl = url.indexOf("http") > -1 ? url : baseURL + url;
+    const res = await fetch(reqUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Token: token },
       body: JSON.stringify(params),
       ...options,
       signal: controller.signal
@@ -212,7 +214,11 @@ function myFetch(url, params, options) {
       ElMessage.error("请求失败！");
       return reject(error);
     }
-    return resolve(json.data);
+    if (json.code === 0) {
+      ElMessage.error(json.msg);
+      return reject(json.data);
+    }
+    return resolve([json.data, json]);
   });
 }
 

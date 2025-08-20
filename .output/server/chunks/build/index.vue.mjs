@@ -6,9 +6,9 @@ import { _ as _imports_0$5 } from './logo.png.mjs';
 import { _ as _imports_1$2 } from './zhaojiafang.jpg.mjs';
 import { T as TestBaseURL, c as useRouter, J as JUMP_OUTSIDE_LINK, i as isNumber, a as useNamespace, b as useId, h as isUndefined, j as isElement, O as ORIGIN_OUTSIDE_LINK } from './server.mjs';
 import dayjs from 'dayjs';
-import { c as clone, t as throwError, u as useComposition, a as useFocusController, d as debugWarn, U as UPDATE_MODEL_EVENT, C as CHANGE_EVENT, m as mutable, E as ElInput, S as Session } from './index2.mjs';
+import { c as clone, t as throwError, u as useComposition, a as useFocusController, d as debugWarn, U as UPDATE_MODEL_EVENT, C as CHANGE_EVENT, m as mutable, E as ElInput } from './index2.mjs';
 import { D as DEFINE_HOME_TITLE, a as DEFINE_HOME_CAROUSEL, b as DEFINE_HOME_NAV, _ as __nuxt_component_3$1, c as DEFINE_HOME_DISTRCT, d as DEFINE_HOME_SOCIAL } from './move.vue.mjs';
-import { m as myFetch, p as pc_password_login } from './login.mjs';
+import { m as myFetch } from './myFetch.mjs';
 import { b as buildProps, _ as _export_sfc, c as arrow_left_default, d as arrow_right_default, w as withInstall, e as withNoopInstall, i as iconPropType, f as definePropType, a as addUnit, g as close_default, V as ValidateComponentsMap, h as arrow_down_default, j as circle_close_default, k as d_arrow_left_default, m as more_filled_default, l as d_arrow_right_default } from './icon.mjs';
 import { throttle, castArray, get, isEqual, debounce, findLastIndex } from 'lodash-unified';
 import { isArray, isString, isObject, isFunction, isPlainObject } from '@vue/shared';
@@ -3939,7 +3939,7 @@ const _sfc_main$a = /* @__PURE__ */ defineComponent({
         } else {
           _push(`<!---->`);
         }
-        _push(`</aside><aside class="flex-start-center gap-[16px]"><p>${ssrInterpolate(news.province)}-${ssrInterpolate(news.city)}</p><p>${ssrInterpolate(unref(dataFliter)(news.posttime, "YYYY.MM.DD"))}</p></aside></nav><p class="color-[#666] mt-[10px]">${ssrInterpolate(news.content_red)} <span class="color-[#FF6A36] ml-[10px]"> 查与我相关 + </span></p><footer class="flex-between-center"><p class="color-[#666] mt-[10px]"> 业主联系人 / 项目预算 <button class="bg-[#FFA761] rounded-[2px] color-[#fff] pr-[6px] pl-[6px] pt-[2px] pb-[2px] ml-[10px]"> 已人工核实 | 查联系方式 </button></p><a class="color-[#128BED] h-1">项目详情</a></footer>`);
+        _push(`</aside><aside class="flex-start-center gap-[16px]"><p>${ssrInterpolate(news.province)}-${ssrInterpolate(news.city)}</p><p>${ssrInterpolate(unref(dataFliter)(/* @__PURE__ */ new Date(), "YYYY.MM.DD"))}</p></aside></nav><p class="color-[#666] mt-[10px]">${ssrInterpolate(news.content_red)} <span class="color-[#FF6A36] ml-[10px]"> 查与我相关 + </span></p><footer class="flex-between-center"><p class="color-[#666] mt-[10px]"> 业主联系人 / 项目预算 <button class="bg-[#FFA761] rounded-[2px] color-[#fff] pr-[6px] pl-[6px] pt-[2px] pb-[2px] ml-[10px]"> 已人工核实 | 查联系方式 </button></p><a class="color-[#128BED] h-1">项目详情</a></footer>`);
         if (i !== unref(newsList).length - 1) {
           _push(`<div class="h-[1px] mt-[15px] w-full bg-[#f3f3f3]"></div>`);
         } else {
@@ -4375,16 +4375,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
   __ssrInlineRender: true,
   setup(__props) {
-    const isLogin = ref(false);
-    const getLoginToken = async () => {
-      const [pc_login] = await pc_password_login({
-        mobile: "13003638608",
-        password: "zjiaf123"
-      });
-      isLogin.value = true;
-      Session.setSession("token", pc_login.token);
-    };
-    getLoginToken();
+    const isLogin = ref(true);
     return (_ctx, _push, _parent, _attrs) => {
       const _component_home_header = __nuxt_component_0;
       const _component_home_nav = __nuxt_component_1;
